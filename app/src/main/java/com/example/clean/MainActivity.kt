@@ -66,6 +66,7 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun home(
@@ -74,43 +75,26 @@ class MainActivity : ComponentActivity() {
         val viewModel = ViewModelProvider(this).get(news_viewmodel::class.java)
         val dataList by viewModel.get_data().observeAsState()
 
-        LazyColumn {
+        LazyColumn() {
 //            var new: List<Article> = dataList?.articles ?: emptyList()
-            items(dataList?.articles?: emptyList()) { article ->
+            items(dataList?.articles ?: emptyList()) { article ->
                 val page = Page(article.title, article.description, article.urlToImage)
-                Card(modifier = Modifier.padding(vertical = 5.dp),
+                Card(modifier = Modifier.padding(5.dp),
                     onClick = {
                         constants.page = page
                         nav.navigate("detail")
                     }) {
-                    Card {
-                        Column {
-                            Text(
-                                text = article.author,
-                                style = TextStyle(fontWeight = FontWeight.Bold)
-                            )
-                            Text(text = article.url)
-                        }
+
+                    Column(Modifier.padding(horizontal = 5.dp)) {
+                        Text(
+                            text = article.author,
+                            style = TextStyle(fontWeight = FontWeight.Bold)
+                        )
+                        Text(text = article.url)
                     }
+
                 }
             }
         }
     }
 }
-
-//    @Composable
-//    fun Greeting(name: String, modifier: Modifier = Modifier) {
-//        Text(
-//            text = "Hello $name!",
-//            modifier = modifier,
-//            textAlign = TextAlign.Center
-//        )
-//    }
-//
-//    @Preview(showBackground = true)
-//    @Composable
-//    fun GreetingPreview() {
-//        CleanTheme {
-//            Greeting("Android")
-//        }
-//    }

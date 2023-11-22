@@ -36,11 +36,11 @@ fun onBoardingPage(
     page: Page,
     nav: NavController
 ) {
-    constants.page = Page(
-        "Descent",
-        "A caving expedition goes horribly wrong, as the explorers become trapped and ultimately pursued by a strange breed of predators.",
-        "https://techcrunch.com/wp-content/uploads/2022/11/GettyImages-491311400.jpg"
-    )
+//    constants.page = Page(
+//        "Descent",
+//        "A caving expedition goes horribly wrong, as the explorers become trapped and ultimately pursued by a strange breed of predators.",
+//        "https://techcrunch.com/wp-content/uploads/2022/11/GettyImages-491311400.jpg"
+//    )
     Column {
         Button(onClick = { nav.popBackStack() }) {
             Text(text = "Return")

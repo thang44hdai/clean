@@ -9,11 +9,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,21 +20,16 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.clean.data.api.Article
-import com.example.clean.data.api.news
 import com.example.clean.data.constants.constants
 import com.example.clean.domain.entities.Page
+import com.example.clean.presentation.ui.detailPage
 import com.example.clean.presentation.ui.hello
-import com.example.clean.presentation.ui.onBoardingPage
 import com.example.clean.presentation.viewmodel.news_viewmodel
 import com.example.clean.ui.theme.CleanTheme
 
@@ -59,7 +52,7 @@ class MainActivity : ComponentActivity() {
                             home(nav = nav)
                         }
                         composable("detail") {
-                            onBoardingPage(page = constants.page, nav = nav)
+                            detailPage(nav = nav, page = constants.page)
                         }
                     }
                 }
@@ -75,24 +68,26 @@ class MainActivity : ComponentActivity() {
         val viewModel = ViewModelProvider(this).get(news_viewmodel::class.java)
         val dataList by viewModel.get_data().observeAsState()
 
-        LazyColumn() {
+        Column {
+            Text(text = "Hello World")
+            LazyColumn() {
 //            var new: List<Article> = dataList?.articles ?: emptyList()
-            items(dataList?.articles ?: emptyList()) { article ->
-                val page = Page(article.title, article.description, article.urlToImage)
-                Card(modifier = Modifier.padding(5.dp),
-                    onClick = {
-                        constants.page = page
-                        nav.navigate("detail")
-                    }) {
+                items(dataList?.articles ?: emptyList()) { article ->
+                    val page = Page(article.title, article.description, article.urlToImage)
+                    Card(modifier = Modifier.padding(5.dp),
+                        onClick = {
+                            constants.page = page
+                            nav.navigate("detail")
+                        }) {
 
-                    Column(Modifier.padding(horizontal = 5.dp)) {
-                        Text(
-                            text = article.author,
-                            style = TextStyle(fontWeight = FontWeight.Bold)
-                        )
-                        Text(text = article.url)
+                        Column(Modifier.padding(horizontal = 5.dp)) {
+                            Text(
+                                text = article.author,
+                                style = TextStyle(fontWeight = FontWeight.Bold)
+                            )
+                            Text(text = article.url)
+                        }
                     }
-
                 }
             }
         }

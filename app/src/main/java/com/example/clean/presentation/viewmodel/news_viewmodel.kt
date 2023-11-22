@@ -1,16 +1,13 @@
 package com.example.clean.presentation.viewmodel
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.clean.data.api.Article
 import com.example.clean.data.api.news
 import com.example.clean.domain.usecase.apiService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.reflect.typeOf
 
 class news_viewmodel : ViewModel() {
     val _dataList: MutableLiveData<news> = MutableLiveData()

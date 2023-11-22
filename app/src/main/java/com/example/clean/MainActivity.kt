@@ -66,7 +66,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     fun home(
@@ -76,8 +75,8 @@ class MainActivity : ComponentActivity() {
         val dataList by viewModel.get_data().observeAsState()
 
         LazyColumn {
-            var new: List<Article> = dataList?.articles ?: emptyList()
-            items(new) { article ->
+//            var new: List<Article> = dataList?.articles ?: emptyList()
+            items(dataList?.articles?: emptyList()) { article ->
                 val page = Page(article.title, article.description, article.urlToImage)
                 Card(modifier = Modifier.padding(vertical = 5.dp),
                     onClick = {

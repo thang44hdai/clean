@@ -1,6 +1,7 @@
 package com.example.clean.presentation.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -11,6 +12,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -36,21 +39,23 @@ fun onBoardingPage(
     page: Page,
     nav: NavController
 ) {
-//    constants.page = Page(
-//        "Descent",
-//        "A caving expedition goes horribly wrong, as the explorers become trapped and ultimately pursued by a strange breed of predators.",
-//        "https://techcrunch.com/wp-content/uploads/2022/11/GettyImages-491311400.jpg"
-//    )
+
     Column {
-        Button(onClick = { nav.popBackStack() }) {
-            Text(text = "Return")
+
+        Box() {
+            Image(
+                painter = rememberImagePainter(data = page.image),
+                contentDescription = null,
+                contentScale = ContentScale.Fit,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Button(
+                onClick = { nav.popBackStack() },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+            ) {
+                Text(text = "Return")
+            }
         }
-        Image(
-            painter = rememberImagePainter(data = page.image),
-            contentDescription = null,
-            contentScale = ContentScale.Fit,
-            modifier = Modifier.fillMaxWidth()
-        )
         LazyColumn(modifier = Modifier.padding(horizontal = 5.dp)) {
             item { Spacer(modifier = Modifier.height(20.dp)) }
             item {

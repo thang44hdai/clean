@@ -14,18 +14,25 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavArgument
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.clean.data.constants.constants
 import com.example.clean.domain.entities.Page
 import com.example.clean.presentation.ui.detailPage
@@ -51,8 +58,19 @@ class MainActivity : ComponentActivity() {
                         composable("home") {
                             home(nav = nav)
                         }
-                        composable("detail") {
-                            detailPage(nav = nav, page = constants.page)
+                        composable(
+                            "detail/{test}",
+                            arguments = listOf(
+                                navArgument("test") {
+                                    type = NavType.StringType
+                                }
+                            )
+                        ) {
+                            detailPage(
+                                nav = nav,
+                                page = constants.page,
+                                test = it.arguments?.getString("test") ?: ""
+                            )
                         }
                     }
                 }
@@ -67,17 +85,24 @@ class MainActivity : ComponentActivity() {
     ) {
         val viewModel = ViewModelProvider(this).get(news_viewmodel::class.java)
         val dataList by viewModel.get_data().observeAsState()
-
+        var inputController by remember {
+            mutableStateOf("")
+        }
         Column {
-            Text(text = "Hello World")
+            TextField(
+                value = inputController,
+                onValueChange = { it ->
+                    inputController = it
+                },
+                label = { Text(text = "Name:") }
+            )
             LazyColumn() {
-//            var new: List<Article> = dataList?.articles ?: emptyList()
                 items(dataList?.articles ?: emptyList()) { article ->
                     val page = Page(article.title, article.description, article.urlToImage)
                     Card(modifier = Modifier.padding(5.dp),
                         onClick = {
                             constants.page = page
-                            nav.navigate("detail")
+                            nav.navigate("detail/${inputController}")
                         }) {
 
                         Column(Modifier.padding(horizontal = 5.dp)) {

@@ -1,5 +1,6 @@
 package com.example.clean.presentation.ui
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,8 +29,10 @@ import com.example.clean.domain.entities.Page
 fun detailPage(
     modifier: Modifier = Modifier,
     nav: NavController,
-    page: Page
+    page: Page,
+    test: String
 ) {
+    Log.i("Detail Page", test)
     Column {
 
         Box() {

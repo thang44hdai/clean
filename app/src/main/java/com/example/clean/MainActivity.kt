@@ -1,7 +1,6 @@
 package com.example.clean
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
@@ -26,15 +25,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavArgument
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.clean.data.constants.constants
-import com.example.clean.domain.entities.Page
+import com.example.clean.domain.models.constants
+import com.example.clean.domain.models.Page
 import com.example.clean.presentation.ui.detailPage
 import com.example.clean.presentation.ui.hello
 import com.example.clean.presentation.viewmodel.news_viewmodel
@@ -84,7 +82,7 @@ class MainActivity : ComponentActivity() {
         nav: NavController
     ) {
         val viewModel = ViewModelProvider(this).get(news_viewmodel::class.java)
-        val dataList by viewModel.get_data().observeAsState()
+        val dataList by viewModel.dataList.observeAsState()
         var inputController by remember {
             mutableStateOf("")
         }

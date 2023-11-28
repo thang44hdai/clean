@@ -1,7 +1,7 @@
 package com.example.clean.domain.usecase
 
 import com.example.clean.data.api.news
-import com.example.clean.data.constants.constants
+import com.example.clean.domain.models.constants
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

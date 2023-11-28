@@ -1,6 +1,6 @@
-package com.example.clean.data.constants
+package com.example.clean.domain.models
 
-import com.example.clean.domain.entities.Page
+import com.example.clean.domain.models.Page
 
 
 class constants {
